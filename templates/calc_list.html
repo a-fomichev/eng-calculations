@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{% block title %} Каталог расчетов {% endblock %}</h1>
+
+   <ul >
+      <li> <a href="{{url_for('strength_calc',calc_type = strength_calc_list.strength_calc_1[0])}}">{{strength_calc_list.strength_calc_1[1]}}</a></li>
+      <li><a href="{{url_for('strength_calc',calc_type = strength_calc_list.strength_calc_2[0])}}">{{strength_calc_list.strength_calc_2[1]}}</a></li>
+    </ul>
+
+
+{% endblock %}

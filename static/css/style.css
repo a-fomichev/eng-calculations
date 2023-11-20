@@ -1,0 +1,423 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-weight: 700;
+    color: #201E20;
+}
+
+P {
+    padding-top: 0.5em;
+    text-align: justify;
+    text-indent: 1.5em;
+    color: #201E20;
+}
+
+
+body {
+    background: #f2f3f4;
+    font-family: 'Manrope', sans-serif;
+    font-style: normal;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+
+}
+
+.container {
+    max-width: 1248px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/*start header*/
+.header {
+    width: 100%;
+    height: 80px;
+    background: #201E20;
+}
+
+.header__inner {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu__list {
+    display: flex;
+    gap: 56px;
+}
+
+.menu__list-linc {
+    color: #f2f3f4;
+    font-weight: 700;
+}
+
+.logo {
+    color: #f2f3f4;
+    font-weight: 700;
+}
+
+/*end header*/
+
+
+/*start baner*/
+.banner {
+    width: 100%
+}
+
+.banner__inner {
+    padding: 220px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start
+}
+
+.banner-info {
+    width: 60%;
+}
+
+.banner-info h2 {
+    font-size: 64px;
+
+}
+
+.banner-info p {
+    font-size: 24px;
+    color: #85808A;
+}
+
+.social-linc {
+    display: flex;
+    padding-top: 35px;
+    font-size: 30px;
+    gap: 30px;
+    color: #85808A;
+}
+
+/*end baner*/
+
+
+/*start portfolio*/
+.portfolio-card {
+    float: left;
+    background-color: #2196F3;
+    color: #ffffff;
+    width: 100px;
+    line-height: 100px;
+    text-align: center;
+    margin: 2px;
+    display: none;
+    /* Скрыто по умолчанию */
+}
+
+/* В класс "show" добавляется к отфильтрованные элементы */
+.show {
+    display: block;
+}
+
+/* Скрыть модальные окна по умолчанию */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+}
+
+/* Стилизация контента внутри модального окна */
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 50%;
+}
+.modal-content-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    gap: 20px;
+}
+.modal-content-description{
+    max-width: 40%;
+
+
+}
+.modal-content-swiper{
+    max-width: 50%;
+}
+
+/* Стили для ссылок, открывающих модальные окна */
+.modal-link {
+    margin: 10px;
+    text-decoration: none;
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border-radius: 5px;
+}
+
+/* Стили для кнопки закрытия модального окна */
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+
+/* swiper start */
+.swiper {
+    /* display: block;
+    width: 100%;
+    height: 100%; */
+}
+
+.swiper-wrapper {
+    display: flex;
+}
+
+.swiper-slide {
+    width: auto;
+    height: auto;
+
+    /* flex: 1 0 auto; */
+}
+
+
+.slide-wrapper {
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    /* height: 100%; */
+    object-fit: cover;
+}
+
+
+.slide-1 {
+    width: 300px;
+    height: 300px;
+    border: 2px solid red;
+
+}
+
+.slide-2 {
+    width: 300px;
+    height: 500px;
+    border: 2px solid hsl(147, 72%, 43%);
+
+}
+
+.slide-3 {
+    width: 200px;
+    height: 300px;
+    border: 2px solid rgb(89, 62, 189);
+
+}
+
+/* swiper end */
+
+
+/*end portfolio*/
+
+
+/*start form*/
+
+.form {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.form__description {
+    width: 100%;
+    margin: 0px 0px 24px 0px;
+}
+
+.form__description h1 {
+    margin: 0em 0px 2em 0px;
+    text-align: center;
+}
+
+.form__body {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 40px 20px;
+}
+
+.form__body-input {
+    /*    background-color: #98FB98;*/
+    max-width: 740px;
+}
+
+.form__body-input h3 {
+    margin: 0em 0px 1em 0px;
+    text-align: center;
+}
+
+.form__table {
+    border-collapse: collapse;
+    min-width: auto;
+
+    /*    line-height: 1;*/
+    font-family: inherit;
+    font-size: inherit;
+}
+
+
+
+
+.form__table-row-header {
+    height: 2em;
+    vertical-align: bottom;
+
+}
+
+.form__symbol {
+    text-align: center;
+    font-weight: 700;
+    font-style: italic;
+    padding: 0em 0.2em 0em 1em;
+}
+
+
+.form__prefix {
+    font-size: 24px;
+    text-align: right;
+    vertical-align: bottom;
+    padding: 0em 0.2em 0em 1em;
+}
+
+
+
+.form__input {
+    border: solid 1px #85808A;
+    border-radius: 3px;
+    height: 100%;
+
+    text-align: center;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.form__input-small {
+    width: 3em;
+}
+
+.form__input-medium {
+    width: 4em;
+}
+
+.form__input-large {
+    width: 6em;
+}
+
+
+.form__input-error {
+    background-color: rgba(255, 0, 0, 0.2);
+}
+
+.form__error-message {
+    font-size: 14px;
+    /*    text-align: center;*/
+    font-style: italic;
+    color: #85808A;
+}
+
+
+.form__check {
+    border: solid 1px #85808A;
+    border-radius: 4px;
+    height: 100%;
+
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 30px;
+    background-color: #85808A;
+    border: 1px solid #85808A;
+    border-radius: 5px;
+    color: #f2f3f4;
+    text-align: center;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    user-select: none;
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 30px;
+}
+
+.button:hover {
+    opacity: 0.8;
+}
+
+.button:focus {
+    outline: none;
+}
+
+.form__body-img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: auto;
+    background-color: #FF69B4;
+}
+
+.form__body-img h3 {
+    margin: 0em 0px 1em 0px;
+    text-align: center;
+}
+
+.design_scheme {
+    width: 400px;
+}
+
+/*end form*/

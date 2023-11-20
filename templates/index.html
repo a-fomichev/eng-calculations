@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<!--      start banner-->
+<div class="banner">
+    <div class="container">
+        <div class="banner__inner">
+            <div class="banner-info">
+                <h2> Фомичев Алексей</h2>
+                <p> Я занимаюсь проектированием и расчетами прочности и усточивости разного рода геотехнических и
+                    гидротехнических сооружений. На этом сайте вы сможете ознакомиться с моим резюме и портфолио. Так же
+                    данный сайт представляет собой площадку для реализации различных инженерных расчетов </p>
+                <div class="social-linc">
+                    <a href="#" class="telegram"><i class="fa fa-telegram"></i></a>
+                    <a href="#" class="vk"><i class="fa fa-vk"></i></a>
+                    <a href="#" class="email"><i class="fa fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="banner-img">
+                <!--<img src="{{ url_for('static', filename='img/banner.png') }}" alt="">-->
+            </div>
+        </div>
+    </div>
+</div>
+<!--      end banner-->
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script src="static/js/main.js"></script>
+
+
+
+
+{% endblock %}

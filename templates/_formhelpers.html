@@ -1,0 +1,114 @@
+<!--=======================================================-->
+{% macro render_field(field) %}
+<tr>
+    <td>{{field.label(class="form__label")}}</td>
+    <td><span class="form__symbol">{{field.render_kw.symbol|safe}}</span></td>
+    <td><span class="form__prefix">{{field.render_kw.prefix|safe}}</span></td>
+    <td>
+        {{ field (class='form__input form__input-{} form__input-error'.format(field.render_kw.field_size) if
+        field.errors else 'form__input form__input-{}'.format(field.render_kw.field_size))}}
+        <span class="form__unit">{{field.render_kw.unit|safe}}</span>
+    </td>
+</tr>
+{% if field.errors %}
+{% for error in field.errors %}
+<tr class="form__table-row-error-msg">
+    <td colspan="4">
+        <div class="form__error-message">{{error}}</div>
+    </td>
+</tr>
+{% endfor %}
+{% endif %}
+{% endmacro %}
+<!--=======================================================-->
+
+
+<!--=======================================================-->
+{% macro render_field_reinforcement(field_1, field_2, field_3, label, symbol) %}
+<tr>
+    <td><label class="form__label">{{label}}</label></td>
+    <td><span class="form__symbol">{{symbol|safe}}</span></td>
+    <td><span class="form__prefix">&#8960;</span></td>
+    <td>
+        {{ field_1 (class='form__input form__input-{} form__input-error'.format(field_1.render_kw.field_size) if
+        field_1.errors else 'form__input form__input-{}'.format(field_1.render_kw.field_size))}}
+        <span class="form__suffix">x</span>
+        {{ field_2 (class='form__input form__input-{} form__input-error'.format(field_2.render_kw.field_size) if
+        field_2.errors else 'form__input form__input-{}'.format(field_2.render_kw.field_size))}}
+        <span class="form__suffix">=</span>
+        {{ field_3 (class='form__input form__input-{} form__input-error'.format(field_3.render_kw.field_size) if
+        field_3.errors else 'form__input form__input-{}'.format(field_3.render_kw.field_size))}}
+        <span class="form__unit">см <sup>2</sup></span>
+    </td>
+</tr>
+{% if field_1.errors %}
+{% for error in field_1.errors %}
+<tr class="form__table-row-error-msg">
+    <td colspan="4">
+        <div class="form__error-message">{{error}}</div>
+    </td>
+</tr>
+{% endfor %}
+{% endif %}
+
+{% if field_2.errors %}
+{% for error in field_2.errors %}
+<tr class="form__table-row-error-msg">
+    <td colspan="4">
+        <div class="form__error-message">{{error}}</div>
+    </td>
+</tr>
+{% endfor %}
+{% endif %}
+
+{% if field_3.errors %}
+{% for error in field_3.errors %}
+<tr class="form__table-row-error-msg">
+    <td colspan="4">
+        <div class="form__error-message">{{error}}</div>
+    </td>
+</tr>
+{% endfor %}
+{% endif %}
+
+{% endmacro %}
+
+<!--=======================================================-->
+
+
+<!--=======================================================-->
+{% macro validate_field(field) %}
+{% if field.errors %}
+{% for error in field.errors %}
+<tr class="form__table-row-error-msg">
+    <td colspan="4">
+        <div class="form__error-message">{{error}}</div>
+    </td>
+</tr>
+{% endfor %}
+{% endif %}
+{% endmacro %}
+<!--=======================================================-->
+
+{% macro render_nested_field(field,label, symbol) %}
+<tr>
+    <td><label class="form__label">{{label}}</label></td>
+    <td><span class="form__symbol">{{symbol|safe}}</span></td>
+    <td></td>
+    <td>
+        {{ field (class='form__input form__input-{} form__input-error'.format(field.render_kw.field_size) if
+        field.errors else 'form__input form__input-{}'.format(field.render_kw.field_size))}}
+        <span class="form__unit">{{field.render_kw.unit|safe}}</span>
+    </td>
+</tr>
+{% if field.errors %}
+{% for error in field.errors %}
+<tr class="form__table-row-error-msg">
+    <td colspan="4">
+        <div class="form__error-message">{{error}}</div>
+    </td>
+</tr>
+{% endfor %}
+{% endif %}
+
+{% endmacro %}

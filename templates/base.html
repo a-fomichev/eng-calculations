@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap" rel="stylesheet">
+    <!-- start mathjax  -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [["$", "$"], ["\\\\(", "\\\\)"]],
+                displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+                processEscapes: true
+            },
+            chtml: {
+                minScale: 1
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script"></script>
+    <!-- end mathjax  -->
+    <!-- start swiper  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <!-- end swiper  -->
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!--    start header-->
+        <header id='header' class="header">
+            <div class="container">
+                <div class="header__inner">
+                    <div class="logo">LOGO</div>
+                    <nav class="menu">
+                        <ul class="menu__list">
+                            <li class="menu__list-item"><a class="menu__list-linc" href="{{ url_for('index')}}">Home</a>
+                            </li>
+                            <li class="menu__list-item"><a class="menu__list-linc" href="#">Резюме</a></li>
+                            <li class="menu__list-item"><a class="menu__list-linc"
+                                    href="#">Портфолио</a></li>
+                            <li class="menu__list-item"><a class="menu__list-linc"
+                                    href="{{ url_for('calc_list')}}">Список
+                                    расчетов</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <!--    end header-->
+
+        <!--    start content-->
+        {% block content %}
+
+        {% endblock %}
+        <!--    end content-->
+
+        <!--      start footer-->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-inner">
+                    <div class="footer-inner-copyright">
+
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!--      end footer-->
+    </div>
+    <script src="https://kit.fontawesome.com/49dce634cb.js" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

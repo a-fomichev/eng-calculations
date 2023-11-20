@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% block title %} Калькулятор 2 {% endblock %}
+{% block content %}
+{% from "_formhelpers.html" import render_field, render_nested_field, render_field_reinforcement %}
+<!--start form-->
+
+
+<form id='form' action="{{url_for('strength_calc', calc_type='strength_bending_kz')}}" novalidate class="form"
+      method="post">
+    {{ form.csrf_token() }}
+
+    <div class="container">
+        <div class="form__inner">
+            <div class="form__description">
+                {{form_description|safe}}
+            </div>
+            <div class="form__body">
+                <div class="form__body-input">
+                    <h3>Исходные данные</h3>
+                    <table class="form__table">
+                        <!--Коэффициенты-->
+                        <tr>
+                            <td colspan="4"><h4>Коэффициенты</h4></td>
+                        </tr>
+                        {{ render_field(form.gamma_n)}}
+                        {{ render_field(form.gamma_c)}}
+                        {{ render_field(form.gamma_lc)}}
+                        {{ render_field(form.gamma_b)}}
+                        {{ render_field(form.gamma_s)}}
+                        <!--Геометрические характеристики сечения-->
+                        <tr class="form__table-row-header">
+                            <td colspan="4"><h4>Геометрические характеристики сечения</h4></td>
+                        </tr>
+                        {{ render_field(form.section_height)}}
+                        {{ render_field(form.section_width)}}
+                        <!--Защитный слой-->
+                        <tr class="form__table-row-header">
+                            <td colspan="4"><h4>Защитный слой</h4></td>
+                        </tr>
+                        {{ render_nested_field(form.s.protective_layer, "Защитный слой у растянутой грани","a")}}
+                        {{ render_nested_field(form.sc.protective_layer, "Защитный слой у сжатой грани","a'")}}
+                        <!--Армирование сечения-->
+                        <tr class="form__table-row-header">
+                            <td colspan="4"><h4>Армирование сечения</h4></td>
+                        </tr>
+                        {{ render_field_reinforcement(form.s.reinforcement_diameter, form.s.reinforcement_number,
+                        form.s.reinforcement_area, "Растянутая арматура", "A<sub>s</sub>")}}
+                        {{ render_field_reinforcement(form.sc.reinforcement_diameter, form.sc.reinforcement_number,
+                        form.sc.reinforcement_area, "Сжатая арматура", "A<sub>sc</sub>")}}
+                        <!--Характеристики бетона и арматуры-->
+                        <tr class="form__table-row-header">
+                            <td colspan="4"><h4>Характеристики бетона и арматуры</h4></td>
+                        </tr>
+                        {{ render_field(form.bending_moment)}}
+                        <!--Нагрузки-->
+                        <tr class="form__table-row-header">
+                            <td colspan="4"><h4>Нагрузки</h4></td>
+                        </tr>
+                        {{ render_field(form.class_concrete)}}
+                        {{ render_field(form.class_reinforcement)}}
+
+
+                    </table>
+                </div>
+                <div class="form__body-img">
+                    <h3>Расчетная схема</h3>
+                    <img src="{{ url_for('static', filename='img/calc_img/m1.svg') }}" alt="" class="design_scheme">
+                </div>
+            </div>
+            <button type="submit" class="button">Решить</button>
+            {% if report_flag %}
+
+            {%endif %}
+        </div>
+    </div>
+</form>
+<!--end form-->
+
+<!--start report-->
+{% if report_flag %}
+<!-- Добавьте кнопку для отправки HTML кода на сервер -->
+<button id="sendHtmlButton" class="button">Скачать PDF</button>
+<div id='report' class="report">
+    <div class="container">
+        <div class="report__inner">
+            <h2 style="text-align:center; color: blue">Result</h2>
+            {{form_report|safe}}
+        </div>
+    </div>
+</div>
+{%endif %}
+<!--end report-->
+<!--start scripts-->
+
+<!--Скрипт вычисления площади растянутой арматуры-->
+<script>
+    const s_diameterInput = document.getElementById('s_reinforcement_diameter');
+    const s_numberInput = document.getElementById('s_reinforcement_number');
+    const s_areaInput = document.getElementById('s_reinforcement_area');
+
+    function s_updateArea() {
+        const s_diameter = parseFloat(s_diameterInput.value);
+        const s_number = parseFloat(s_numberInput.value);
+
+        if (!isNaN(s_diameter) && !isNaN(s_number)) {
+            const s_area = (3.14*(s_diameter/10)*(s_diameter/10)/4) * s_number;
+            s_areaInput.value = s_area.toFixed(2);
+        } else {
+            s_areaInput.value = '';
+        }
+    }
+
+    s_diameterInput.addEventListener('input', s_updateArea);
+    s_numberInput.addEventListener('input', s_updateArea);
+
+
+</script>
+<!--Скрипт вычисления площади сжатой арматуры-->
+<script>
+    const sc_diameterInput = document.getElementById('sc_reinforcement_diameter');
+    const sc_numberInput = document.getElementById('sc_reinforcement_number');
+    const sc_areaInput = document.getElementById('sc_reinforcement_area');
+
+    function sc_updateArea() {
+        const sc_diameter = parseFloat(sc_diameterInput.value);
+        const sc_number = parseFloat(sc_numberInput.value);
+
+        if (!isNaN(sc_diameter) && !isNaN(sc_number)) {
+            const sc_area = (3.14*(sc_diameter/10)*(sc_diameter/10)/4) * sc_number;
+            sc_areaInput.value = sc_area.toFixed(2);
+        } else {
+            sc_areaInput.value = '';
+        }
+    }
+
+    sc_diameterInput.addEventListener('input', sc_updateArea);
+    sc_numberInput.addEventListener('input', sc_updateArea);
+
+
+</script>
+<!-- Добавьте скрипт для обработки события нажатия на кнопку -->
+<script>
+    // Функция для отправки HTML кода на сервер и открытия PDF файла
+    function sendHtmlToServer() {
+        const renderedHTML = document.getElementById('report').innerHTML;
+
+        // Отправка HTML кода на сервер с использованием fetch API
+        fetch('/save_rendered_html', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ html: renderedHTML })
+        })
+        .then(response => response.blob()) // Получение PDF как Blob
+        .then(blob => {
+            // Создание объекта URL для Blob
+            const pdfUrl = URL.createObjectURL(blob);
+
+            // Открытие PDF в новой вкладке браузера
+            window.open(pdfUrl, '_blank');
+
+            // Добавьте обработку PDF-файла здесь, если необходимо
+            // Например, вы можете отобразить сообщение об успешном скачивании PDF
+            // alert('PDF файл успешно скачан.');
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+        });
+    }
+
+    // Добавление обработчика события на кнопку
+    document.getElementById('sendHtmlButton').addEventListener('click', sendHtmlToServer);
+</script>
+
+<!--end scripts-->
+
+
+{% endblock %}
