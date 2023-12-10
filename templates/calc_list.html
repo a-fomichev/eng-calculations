@@ -1,11 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>{% block title %} Каталог расчетов {% endblock %}</h1>
 
-   <ul >
-      <li> <a href="{{url_for('strength_calc',calc_type = strength_calc_list.strength_calc_1[0])}}">{{strength_calc_list.strength_calc_1[1]}}</a></li>
-      <li><a href="{{url_for('strength_calc',calc_type = strength_calc_list.strength_calc_2[0])}}">{{strength_calc_list.strength_calc_2[1]}}</a></li>
-    </ul>
+<div class="calc_lsit">
+   <div class="container">
+      <div class="calc_list__inner">
+         <h1>{% block title %} Каталог расчетов {% endblock %}</h1>
+
+
+         <table class="table">
+            <thead>
+               <tr>
+                  <th>Шифр</th>
+                  <th>Название расчета</th>
+                  <th>Нормативное обоснование</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% for row in strength_checks_kz_list %}
+               <tr>
+                  <td>{{strength_checks_kz_list.get(row)[2]}}</td>
+                  <td><a href="{{url_for('calculation',calc_type = strength_checks_kz_list.get(row)[0])}}">{{strength_checks_kz_list.get(row)[1]}}</a></td>
+                  <td>{{strength_checks_kz_list.get(row)[3]}}</td>
+               </tr>
+               {% endfor %}
+            </tbody>
+         </table>
+      </div>
+   </div>
+
+
+
+</div>
 
 
 {% endblock %}
